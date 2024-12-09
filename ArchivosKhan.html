@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Combinación de Dibujos</title>
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+        #menu {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Selecciona un dibujo</h1>
+    <select id="menu">
+        <option value="snowman">Muñeco de Nieve</option>
+        <option value="sunnyDay">Día Soleado</option>
+        <option value="dinner">¿Qué Hay Para Cenar?</option>
+        <option value="bunny">Dientes de Conejo</option>
+        <option value="frog">Rana</option>
+    </select>
+    <canvas id="miLienzo" width="400" height="400"></canvas>
+
+    <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script>
+    <script>
+        const canvas = document.getElementById('miLienzo');
+        const menu = document.getElementById('menu');
+
+        const dibujos = {
+            snowman: function (p) {
+                with (p) {
+                    size(400, 400);
+                    frameRate(30);
+                    rect(5, 350, 390, 50);
+                    ellipse(200, 300, 150, 150);
+                    ellipse(200, 200, 100, 100);
+                    ellipse(200, 120, 75, 75);
+                    line(160, 200, 50, 100);
+                    line(240, 200, 350, 100);
+                }
+            },
+            sunnyDay: function (p) {
+                with (p) {
+                    size(400, 400);
+                    frameRate(30);
+                    background(28, 219, 219);
+                    fill(105, 245, 95);
+                    rect(0, 300, 400, 100);
+                    fill(225, 255, 0);
+                    ellipse(80, 64, 100, 100);
+                    fill(252, 249, 249);
+                    ellipse(200, 300, 150, 150);
+                    ellipse(200, 200, 100, 100);
+                    ellipse(200, 120, 75, 75);
+                }
+            },
+            dinner: function (p) {
+                with (p) {
+                    size(400, 400);
+                    frameRate(30);
+                    background(186, 145, 20);
+                    ellipse(200, 200, 350, 350);
+                    ellipse(200, 200, 300, 300);
+                    fill(195, 116, 207);
+                    for (let x = 100; x <= 174; x += 25) {
+                        ellipse(x, 100, 30, 30);
+                        ellipse(x - 25, 120, 30, 30);
+                    }
+                    fill(255, 111, 0);
+                    ellipse(100, 250, 50, 50);
+                    ellipse(160, 250, 50, 50);
+                    fill(6, 161, 14);
+                    ellipse(260, 190, 150, 180);
+                }
+            },
+            bunny: function (p) {
+                with (p) {
+                    size(400, 400);
+                    frameRate(30);
+                    ellipse(150, 70, 60, 120);
+                    ellipse(240, 70, 60, 120);
+                    ellipse(200, 170, 150, 150);
+                    fill(0, 0, 0);
+                    ellipse(170, 150, 20, 20);
+                    ellipse(230, 150, 20, 20);
+                    line(150, 200, 250, 200);
+                    noFill();
+                    rect(185, 200, 15, 20);
+                    rect(200, 200, 15, 20);
+                }
+            },
+            frog: function (p) {
+                with (p) {
+                    size(400, 400);
+                    frameRate(30);
+                    noStroke();
+                    fill(30, 204, 91);
+                    ellipse(200, 250, 200, 100);
+                    ellipse(150, 200, 40, 40);
+                    ellipse(250, 200, 40, 40);
+                    fill(255, 255, 255);
+                    ellipse(150, 200, 30, 30);
+                    ellipse(250, 200, 30, 30);
+                    fill(0, 0, 0);
+                    ellipse(200, 250, 100, 50);
+                    rect(145, 200, 10, 10);
+                    rect(245, 200, 10, 10);
+                }
+            }
+        };
+
+        let processingInstance;
+
+        function actualizarDibujo() {
+            if (processingInstance) processingInstance.exit();
+            processingInstance = new Processing(canvas, dibujos[menu.value]);
+        }
+
+        menu.addEventListener('change', actualizarDibujo);
+        actualizarDibujo();
+    </script>
+</body>
+</html>
